@@ -132,6 +132,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1146571964}
   - component: {fileID: 1146571965}
+  - component: {fileID: 1146571967}
+  - component: {fileID: 1146571966}
   m_Layer: 0
   m_Name: BootstrapManager
   m_TagString: Untagged
@@ -164,6 +166,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6b2d0ad150b84e55a0b792c71c0fc47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1146571966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146571963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4165aebcaa8c94bf59fb767319de077c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1146571967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146571963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9d017d93f2ba49a1937316939cc707e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1550298333
