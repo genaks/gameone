@@ -1,3 +1,4 @@
 {
-	"name": "MemoryMatch.Core"
+	"name": "MemoryMatch.Core",
+	"references":[ "GUID:fabe27eccb1af42f29fd953665a28f0c" ]
 }
