@@ -1,19 +1,19 @@
 using Core.Services;
+using Core.Services.FileSystem;
 using UnityEngine;
 
-namespace Core
+namespace Core.Boostrap
 {
     public class BootstrapManager : MonoBehaviour
     {
-        private SceneLoadingService _sceneLoadingService;
-    
         public void Start()
         {
             if (ServiceLocator.Instance.TryGet(out SceneLoadingService sceneLoadingService))
             {
-                _sceneLoadingService = sceneLoadingService;
-                _sceneLoadingService.GoToMainMenu();
+                sceneLoadingService.GoToMainMenu();
             }
+            
+            UnityFileSystemProvider unityFileSystemProvider = new UnityFileSystemProvider();
         }
     }
 }
