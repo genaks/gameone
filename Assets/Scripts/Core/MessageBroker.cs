@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using MemoryMatch.Core;
+using Core;
 using UnityEngine;
 
 namespace Core.Services
