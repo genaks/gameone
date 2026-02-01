@@ -22,10 +22,11 @@ namespace Core.Services
             {
                 _messageBroker = messageBroker;
                 _messageBroker.Subscribe<StartGameEvent>(GoToGame);
+                _messageBroker.Subscribe<EndGameEvent>(GoBackToMainMenu);
             }
         }
 
-        public void GoToMainMenu()
+        public void LoadMainMenu()
         {
             StartCoroutine(StartAsyncSceneLoad(Constants.Scenes.MainMenu, LoadSceneMode.Additive, () =>
             {
@@ -36,6 +37,11 @@ namespace Core.Services
         private void GoToGame(StartGameEvent startGameEvent)
         {
             StartCoroutine(StartSceneUnload(Constants.Scenes.MainMenu, LoadGameScene));
+        }
+
+        private void GoBackToMainMenu(EndGameEvent endGameEvent)
+        {
+            StartCoroutine(StartSceneUnload(Constants.Scenes.GameScene, LoadMainMenu));
         }
 
         private void LoadGameScene()

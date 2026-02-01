@@ -10,7 +10,7 @@ namespace Core.Boostrap
         {
             if (ServiceLocator.Instance.TryGet(out SceneLoadingService sceneLoadingService))
             {
-                sceneLoadingService.GoToMainMenu();
+                sceneLoadingService.LoadMainMenu();
             }
             
             UnityFileSystemProvider unityFileSystemProvider = new UnityFileSystemProvider();
