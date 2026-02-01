@@ -7,5 +7,10 @@ namespace Core.Config
             public const string MainMenu = "MainMenuScene";
             public const string GameScene = "GameScene";
         }
+        
+        public static class Filenames
+        {
+            public const string CurrentLevel = "CurrentLevel";
+        }
     }
 }
