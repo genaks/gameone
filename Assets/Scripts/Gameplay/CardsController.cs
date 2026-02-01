@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Core.Config;
+using Core.MessageBroker;
 using Core.Services;
 using Scriptables;
 using UI;
@@ -20,7 +21,8 @@ namespace Gameplay
         [SerializeField] private AudioClip failAudioClip;
         [SerializeField] private AudioClip successAudioClip;
         [SerializeField] private float cardPreviewDelay = 0.5f;
-    
+        [SerializeField] private float endGameDelay = 5.0f;
+
         private MessageBroker _messageBroker;
         private FileService _fileService;
         private LevelData _levelData;
@@ -29,7 +31,8 @@ namespace Gameplay
         private List<CardView> _cards = new List<CardView>();
         private int _firstCardIndex = -1;
         private string _firstCardID = "";
-    
+        private int _unrevealedCards = 0;
+        
         private void Start()
         {
             _cardShuffler = new CardShuffler();
@@ -54,6 +57,7 @@ namespace Gameplay
             int numberOfElements = levelData.numberOfRows * levelData.numberOfColumns;
             levelData.sprites.AddRange(levelData.sprites);
             string[] shuffledCards = _cardShuffler.ShuffleCards(levelData.sprites.ToArray());
+            _unrevealedCards = numberOfElements;
             
             // Create new elements
             for (int i = 0; i < numberOfElements; i++)
@@ -97,6 +101,7 @@ namespace Gameplay
 
         private void OnMatchingCardsSelected(int index)
         {
+            _unrevealedCards -= 2;
             audioSource.PlayOneShot(successAudioClip);
             scoreController.OnMatchingCardsSelected();
             StartCoroutine(HideCardsWithDelay(_firstCardIndex, index));
@@ -127,6 +132,11 @@ namespace Gameplay
         {
             _cards[firstCardIndex].SetRevealed();
             _cards[secondCardIndex].SetRevealed();
+
+            if (_unrevealedCards == 0)
+            {
+                StartCoroutine(EndGameWithDelay());
+            }
         }
         
         private IEnumerator ResetCardsWithDelay(int firstCardIndex, int secondCardIndex)
@@ -140,7 +150,13 @@ namespace Gameplay
             _cards[firstCardIndex].Reset();
             _cards[secondCardIndex].Reset();
         }
-    
+        
+        private IEnumerator EndGameWithDelay()
+        {
+            yield return new WaitForSeconds(endGameDelay);
+            _messageBroker.Publish(new EndGameEvent());
+        }
+        
         private void ClearGrid()
         {
             for (int i = gridLayout.transform.childCount - 1; i >= 0; i--)
