@@ -1,3 +1,4 @@
+using System;
 using Core;
 using MemoryMatch.DataModel;
 using UnityEngine;
@@ -40,6 +41,7 @@ namespace UI
         
         private void StartGame(StartGameEvent startGameEvent)
         {
+            _fileService.WipeAll();
             LevelData level = new LevelData(startGameEvent.Level);
             _fileService.WriteToFile(level, Constants.Filenames.CurrentLevel);
         }
@@ -71,6 +73,11 @@ namespace UI
                     DestroyImmediate(levelsContainer.transform.GetChild(i).gameObject);
                 }
             }
+        }
+
+        private void OnDestroy()
+        {
+            _messageBroker.Unsubscribe<StartGameEvent>(StartGame);
         }
     }
 

@@ -95,6 +95,7 @@ namespace Core.Services
         private void OnDestroy()
         {
             _messageBroker.Unsubscribe<StartGameEvent>(GoToGame);
+            _messageBroker.Unsubscribe<EndGameEvent>(GoBackToMainMenu);
         }
     }
 }
