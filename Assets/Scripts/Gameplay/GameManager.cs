@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Core.MessageBroker;
 using Core.Services;
+using Core.Services.FileSystem;
 using TMPro;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace Gameplay
         [SerializeField] private TMP_Text finalScoreText;
 
         private MessageBroker _messageBroker;
+        private IFileService _fileService;
 
         void Start()
         {
@@ -22,6 +24,11 @@ namespace Gameplay
             {
                 _messageBroker = messageBroker;
                 _messageBroker.Subscribe<CardGridExhaustedEvent>(OnCardGridExhausted);
+            }
+            
+            if (ServiceLocator.Instance.TryGet(out FileService fileService))
+            {
+                _fileService = fileService;
             }
         }
         
@@ -42,6 +49,7 @@ namespace Gameplay
             finalScoreText.text = $"{finalScore}";
             yield return new WaitForSeconds(delay);
             _messageBroker.Publish(new EndGameEvent());
+            _fileService.WipeAll();
         }
 
         private void OnDestroy()

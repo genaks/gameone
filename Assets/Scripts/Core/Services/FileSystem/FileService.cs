@@ -1,8 +1,7 @@
 using System.IO;
-using Core.Services.FileSystem;
 using UnityEngine;
 
-namespace Core.Services
+namespace Core.Services.FileSystem
 {
     public class FileService : MonoBehaviour, IFileService
     {
@@ -22,6 +21,11 @@ namespace Core.Services
         {
             var data = _provider.ReadFromFile<T>(fileName);
             return data;
+        }
+
+        public bool FileExists(string fileName)
+        {
+            return _provider.FileExists(fileName);
         }
 
         public void Register(IFileSystemProvider provider)

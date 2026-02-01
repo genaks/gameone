@@ -6,6 +6,7 @@ namespace Core.Services
     {
         void WriteToFile<T>(T data, string fileName);
         T ReadFromFile<T>(string fileName) where T : class;
+        bool FileExists(string fileName);
         void Register(IFileSystemProvider provider);
         void Unregister(IFileSystemProvider provider);
         void WipeAll();

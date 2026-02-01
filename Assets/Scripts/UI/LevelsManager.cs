@@ -5,6 +5,7 @@ using UnityEngine;
 using Core.Config;
 using Core.MessageBroker;
 using Core.Services;
+using Core.Services.FileSystem;
 using ScriptableObjects;
 using Scriptables;
 using UnityEngine.EventSystems;
@@ -16,6 +17,7 @@ namespace UI
         [SerializeField] private LevelsScriptableObject levels;
         [SerializeField] private Transform levelsContainer;
         [SerializeField] private LevelButton levelButtonPrefab;
+        [SerializeField] private GameObject continueButton;
         
         private IFileService _fileService;
         private MessageBroker _messageBroker;
@@ -36,6 +38,7 @@ namespace UI
             if (ServiceLocator.Instance.TryGet(out FileService fileService))
             {
                 _fileService = fileService;
+                
             }
         }
         
@@ -44,6 +47,11 @@ namespace UI
             _fileService.WipeAll();
             LevelData level = new LevelData(startGameEvent.Level);
             _fileService.WriteToFile(level, Constants.Filenames.CurrentLevel);
+        }
+        
+        public void ContinueGame()
+        {
+            _messageBroker.Publish(new ContinueGameEvent());
         }
         
         private void PopulateGrid()

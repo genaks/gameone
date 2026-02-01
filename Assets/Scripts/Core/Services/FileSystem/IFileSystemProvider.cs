@@ -4,5 +4,7 @@ namespace Core.Services.FileSystem
     {
         void WriteToFile<T>(T data, string fileName);
         T ReadFromFile<T>(string fileName) where T : class;
+
+        bool FileExists(string fileName);
     }
 }

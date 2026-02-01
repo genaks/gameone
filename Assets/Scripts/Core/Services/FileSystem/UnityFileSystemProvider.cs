@@ -38,5 +38,10 @@ namespace Core.Services.FileSystem
 
             return null;
         }
+
+        public bool FileExists(string fileName)
+        {
+            return File.Exists(Path.Combine(Application.persistentDataPath, fileName));
+        }
     }
 }
