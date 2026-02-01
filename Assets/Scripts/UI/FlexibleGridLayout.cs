@@ -48,7 +48,7 @@ namespace UI
             }
         }
         
-        private void UpdateGrid()
+        public void UpdateGrid()
         {
             CollectChildren();
             CalculateAndApplyLayout();
