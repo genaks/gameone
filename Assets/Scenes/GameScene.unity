@@ -707,8 +707,9 @@ GameObject:
   - component: {fileID: 648155093}
   - component: {fileID: 648155095}
   - component: {fileID: 648155094}
+  - component: {fileID: 648155096}
   m_Layer: 5
-  m_Name: LeftPane
+  m_Name: ScoreView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -775,6 +776,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 648155092}
   m_CullTransparentMesh: 1
+--- !u!114 &648155096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648155092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0d473d2649e4117a66322a6bded47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 1105529850}
+  turnsText: {fileID: 431900201}
 --- !u!1 &976518638
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,6 +1131,7 @@ MonoBehaviour:
   gridLayout: {fileID: 1158356999}
   cardPrefab: {fileID: 8258703810235850149, guid: fa5fa73b3e0d947779fd94ae5761e767, type: 3}
   audioSource: {fileID: 519420034}
+  scoreController: {fileID: 648155096}
   cardSelectAudioClip: {fileID: 8300000, guid: 010849480b1c14ba79b4bd5cb3558b63, type: 3}
   failAudioClip: {fileID: 8300000, guid: d2551177c01744ad89e02315dbc81827, type: 3}
   successAudioClip: {fileID: 8300000, guid: b8842002844434b598eb6ecf7626719f, type: 3}

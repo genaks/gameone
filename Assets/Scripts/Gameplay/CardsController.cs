@@ -13,8 +13,8 @@ namespace Gameplay
         [Header("References")]
         [SerializeField] private FlexibleGridLayout gridLayout;
         [SerializeField] private CardView cardPrefab;
-        [SerializeField] private AudioSource audioSource;
         [SerializeField] private ScoreController scoreController;
+        [SerializeField] private AudioSource audioSource;
         
         [SerializeField] private AudioClip cardSelectAudioClip;
         [SerializeField] private AudioClip failAudioClip;
@@ -76,12 +76,14 @@ namespace Gameplay
         {
             if (_firstCardIndex == -1)
             {
+                scoreController.OnCardSelected();
                 audioSource.PlayOneShot(cardSelectAudioClip);
                 _firstCardIndex = index;
                 _firstCardID = cardID;
             }
             else if (index != _firstCardIndex)
             {
+                scoreController.OnCardSelected();
                 if (_firstCardID == cardID) //card id is same as the previously selected card
                 {
                     OnMatchingCardsSelected(index);
