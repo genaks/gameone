@@ -1,0 +1,18 @@
+{
+    "name": "MemoryMatch.Gameplay",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e4ef02806539d47de98f315ec5ece323",
+        "GUID:6a57b9103d1604eae90b398f7fddf43a",
+        "GUID:fabe27eccb1af42f29fd953665a28f0c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
