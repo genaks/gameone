@@ -85,5 +85,10 @@ namespace Core.Services
         public void WrapUp(bool isAppExit)
 		{
 		}
+
+        private void OnDestroy()
+        {
+            _messageBroker.Unsubscribe<StartGameEvent>(GoToGame);
+        }
     }
 }

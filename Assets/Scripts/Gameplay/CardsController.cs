@@ -13,7 +13,12 @@ namespace Gameplay
         [Header("References")]
         [SerializeField] private FlexibleGridLayout gridLayout;
         [SerializeField] private CardView cardPrefab;
-        [SerializeField] private float cardPreviewDelay = 1;
+        [SerializeField] private AudioSource audioSource;
+
+        [SerializeField] private AudioClip cardSelectAudioClip;
+        [SerializeField] private AudioClip failAudioClip;
+        [SerializeField] private AudioClip successAudioClip;
+        [SerializeField] private float cardPreviewDelay = 0.5f;
     
         private MessageBroker _messageBroker;
         private FileService _fileService;
@@ -54,7 +59,7 @@ namespace Gameplay
             {
                 CardView card = Instantiate(cardPrefab, gridLayout.transform);
                 card.SetData(shuffledCards[i], i);
-                card.gameObject.name = Constants.ObjectNames.CardPrefix + $"_{i}";
+                card.gameObject.name = Constants.ObjectNames.CardPrefix +  $"_{i}";
                 card.OnCardSelected += RegisterCardSelection;
                 _cards.Add(card);
             }
@@ -68,6 +73,7 @@ namespace Gameplay
     
         private void RegisterCardSelection(string cardID, int index)
         {
+            audioSource.PlayOneShot(cardSelectAudioClip);
             if (_firstCardIndex == -1)
             {
                 _firstCardIndex = index;
@@ -77,11 +83,13 @@ namespace Gameplay
             {
                 if (_firstCardID == cardID)
                 {
+                    audioSource.PlayOneShot(successAudioClip);
                     StartCoroutine(HideCardsWithDelay(_firstCardIndex, index));
                     ResetStoredCards();
                 }
                 else
                 {
+                    audioSource.PlayOneShot(failAudioClip);
                     StartCoroutine(ResetCardsWithDelay(_firstCardIndex, index));
                     ResetStoredCards();
                 }
