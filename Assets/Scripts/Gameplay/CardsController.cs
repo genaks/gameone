@@ -65,7 +65,7 @@ namespace Gameplay
             for (int i = 0; i < numberOfElements; i++)
             {
                 CardView card = Instantiate(cardPrefab, gridLayout.transform);
-                card.SetData(shuffledCards[i], i);
+                card.SetData(shuffledCards[i], i, false);
                 card.gameObject.name = Constants.ObjectNames.CardPrefix +  $"_{i}";
                 card.OnCardSelected += RegisterCardSelection;
                 _cards.Add(card);

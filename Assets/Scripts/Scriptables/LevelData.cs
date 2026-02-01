@@ -10,7 +10,8 @@ namespace Scriptables
         public int numberOfColumns;
         public int numberOfRows;
         public Dictionary<string, bool> cards = new ();
-
+        public bool savedGame = false;
+        
         public LevelData()
         {
             

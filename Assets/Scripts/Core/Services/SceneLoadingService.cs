@@ -23,7 +23,7 @@ namespace Core.Services
                 _messageBroker = messageBroker;
                 _messageBroker.Subscribe<StartGameEvent>(GoToGame);
                 _messageBroker.Subscribe<EndGameEvent>(GoBackToMainMenu);
-                _messageBroker.Subscribe<ContinueGameEvent>(GoToGame);
+                _messageBroker.Subscribe<ContinueGameEvent>(ContinueGame);
             }
         }
 
@@ -36,6 +36,11 @@ namespace Core.Services
         }
          
         private void GoToGame(IGameEvent startGameEvent)
+        {
+            StartCoroutine(StartSceneUnload(Constants.Scenes.MainMenu, LoadGameScene));
+        }
+        
+        private void ContinueGame(ContinueGameEvent continueGameEvent)
         {
             StartCoroutine(StartSceneUnload(Constants.Scenes.MainMenu, LoadGameScene));
         }

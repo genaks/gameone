@@ -17,11 +17,16 @@ namespace UI
         public delegate void CardSelectedDelegate(string cardID, int index);
         public CardSelectedDelegate OnCardSelected;
         
-        public void SetData(string sprite, int index)
+        public void SetData(string sprite, int index, bool revealed)
         {
             image.sprite = Resources.Load<Sprite>(Constants.Filenames.Textures + sprite);
             _spriteID = sprite;
             _index = index;
+            _revealed = revealed;
+            if (_revealed)
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         public void OnPointerClick(PointerEventData eventData)
