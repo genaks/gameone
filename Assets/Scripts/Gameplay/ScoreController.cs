@@ -39,5 +39,10 @@ namespace Gameplay
         {
             _comboMultiplier = 1;
         }
+
+        public int GetFinalScore()
+        {
+            return _score;
+        }
     }
 }

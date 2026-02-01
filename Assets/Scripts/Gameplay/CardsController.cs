@@ -21,7 +21,6 @@ namespace Gameplay
         [SerializeField] private AudioClip failAudioClip;
         [SerializeField] private AudioClip successAudioClip;
         [SerializeField] private float cardPreviewDelay = 0.5f;
-        [SerializeField] private float endGameDelay = 5.0f;
 
         private MessageBroker _messageBroker;
         private FileService _fileService;
@@ -135,7 +134,7 @@ namespace Gameplay
 
             if (_unrevealedCards == 0)
             {
-                StartCoroutine(EndGameWithDelay());
+                _messageBroker.Publish(new CardGridExhaustedEvent());
             }
         }
         
@@ -149,12 +148,6 @@ namespace Gameplay
         {
             _cards[firstCardIndex].Reset();
             _cards[secondCardIndex].Reset();
-        }
-        
-        private IEnumerator EndGameWithDelay()
-        {
-            yield return new WaitForSeconds(endGameDelay);
-            _messageBroker.Publish(new EndGameEvent());
         }
         
         private void ClearGrid()
