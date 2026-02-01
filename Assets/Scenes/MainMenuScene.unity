@@ -513,6 +513,7 @@ MonoBehaviour:
   levels: {fileID: 11400000, guid: e092794ed9a2b479b9589de016064b3d, type: 2}
   levelsContainer: {fileID: 1767132227}
   levelButtonPrefab: {fileID: 5488571649302744685, guid: c8972ba8a224b41a292749d43a74d817, type: 3}
+  continueButton: {fileID: 8296414974599460363}
 --- !u!114 &1445199211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1031,7 +1032,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &8296414974599460404
 MonoBehaviour:
   m_ObjectHideFlags: 0

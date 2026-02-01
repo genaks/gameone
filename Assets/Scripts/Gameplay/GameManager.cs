@@ -39,6 +39,7 @@ namespace Gameplay
 
         private void OnCardGridExhausted(CardGridExhaustedEvent cardGridExhaustedEvent)
         {
+            _fileService.WipeAll();
             StartCoroutine(EndGameWithDelay(endGameDelay));
         }
         
@@ -49,7 +50,6 @@ namespace Gameplay
             finalScoreText.text = $"{finalScore}";
             yield return new WaitForSeconds(delay);
             _messageBroker.Publish(new EndGameEvent());
-            _fileService.WipeAll();
         }
 
         private void OnDestroy()

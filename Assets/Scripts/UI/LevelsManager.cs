@@ -38,7 +38,10 @@ namespace UI
             if (ServiceLocator.Instance.TryGet(out FileService fileService))
             {
                 _fileService = fileService;
-                
+                if (_fileService.FileExists(Constants.Filenames.CurrentLevel))
+                {
+                    continueButton.SetActive(true);
+                }
             }
         }
         
