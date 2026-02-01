@@ -14,7 +14,8 @@ namespace Gameplay
         [SerializeField] private FlexibleGridLayout gridLayout;
         [SerializeField] private CardView cardPrefab;
         [SerializeField] private AudioSource audioSource;
-
+        [SerializeField] private ScoreController scoreController;
+        
         [SerializeField] private AudioClip cardSelectAudioClip;
         [SerializeField] private AudioClip failAudioClip;
         [SerializeField] private AudioClip successAudioClip;
@@ -73,27 +74,39 @@ namespace Gameplay
     
         private void RegisterCardSelection(string cardID, int index)
         {
-            audioSource.PlayOneShot(cardSelectAudioClip);
             if (_firstCardIndex == -1)
             {
+                audioSource.PlayOneShot(cardSelectAudioClip);
                 _firstCardIndex = index;
                 _firstCardID = cardID;
             }
             else if (index != _firstCardIndex)
             {
-                if (_firstCardID == cardID)
+                if (_firstCardID == cardID) //card id is same as the previously selected card
                 {
-                    audioSource.PlayOneShot(successAudioClip);
-                    StartCoroutine(HideCardsWithDelay(_firstCardIndex, index));
-                    ResetStoredCards();
+                    OnMatchingCardsSelected(index);
                 }
                 else
                 {
-                    audioSource.PlayOneShot(failAudioClip);
-                    StartCoroutine(ResetCardsWithDelay(_firstCardIndex, index));
-                    ResetStoredCards();
+                    OnDifferentCardsSelected(index);
                 }
             }
+        }
+
+        private void OnMatchingCardsSelected(int index)
+        {
+            audioSource.PlayOneShot(successAudioClip);
+            scoreController.OnMatchingCardsSelected();
+            StartCoroutine(HideCardsWithDelay(_firstCardIndex, index));
+            ResetStoredCards();
+        }
+        
+        private void OnDifferentCardsSelected(int index)
+        {
+            audioSource.PlayOneShot(failAudioClip);
+            scoreController.OnDifferentCardsSelected();
+            StartCoroutine(ResetCardsWithDelay(_firstCardIndex, index));
+            ResetStoredCards();
         }
 
         private void ResetStoredCards()
