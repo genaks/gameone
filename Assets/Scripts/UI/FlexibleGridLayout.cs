@@ -129,6 +129,24 @@ namespace UI
                 child.anchoredPosition = new Vector2(xPos, yPos);
             }
         }
+        
+        public void SetColumns(int newColumns)
+        {
+            if (newColumns > 0)
+            {
+                columns = newColumns;
+                UpdateGrid();
+            }
+        }
+        
+        public void SetRows(int newRows)
+        {
+            if (newRows > 0)
+            {
+                rows = newRows;
+                UpdateGrid();
+            }
+        }
 
 #if UNITY_EDITOR
     private void OnValidate()
