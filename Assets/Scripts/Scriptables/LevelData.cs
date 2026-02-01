@@ -9,7 +9,7 @@ namespace Scriptables
     {
         public int numberOfColumns;
         public int numberOfRows;
-        public List<string> sprites;
+        public Dictionary<string, bool> cards = new ();
 
         public LevelData()
         {
@@ -20,7 +20,10 @@ namespace Scriptables
         {
             numberOfRows = levelObject.NumberOfRows;
             numberOfColumns = levelObject.NumberOfColumns;
-            sprites = levelObject.Sprites;
+            foreach (var sprite in levelObject.Sprites)
+            {
+                cards[sprite] = false;
+            }
         }
     }
 }

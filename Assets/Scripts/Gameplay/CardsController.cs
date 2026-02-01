@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Config;
 using Core.MessageBroker;
 using Core.Services;
@@ -54,8 +55,9 @@ namespace Gameplay
             // Clear existing children
             ClearGrid();
             int numberOfElements = levelData.numberOfRows * levelData.numberOfColumns;
-            levelData.sprites.AddRange(levelData.sprites);
-            string[] shuffledCards = _cardShuffler.ShuffleCards(levelData.sprites.ToArray());
+            List<string> sprites = levelData.cards.Keys.ToList();
+            sprites.AddRange(sprites);
+            string[] shuffledCards = _cardShuffler.ShuffleCards(sprites.ToArray());
             _unrevealedCards = numberOfElements;
             
             // Create new elements
