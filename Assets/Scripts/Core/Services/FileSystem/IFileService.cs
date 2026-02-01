@@ -8,5 +8,6 @@ namespace Core.Services
         T ReadFromFile<T>(string fileName) where T : class;
         void Register(IFileSystemProvider provider);
         void Unregister(IFileSystemProvider provider);
+        void WipeAll();
     }
 }

@@ -1,3 +1,4 @@
+using System.IO;
 using Core.Services.FileSystem;
 using UnityEngine;
 
@@ -43,6 +44,16 @@ namespace Core.Services
             }
 
             _provider = null;
+        }
+        
+        public void WipeAll()
+        {
+            PlayerPrefs.DeleteAll();
+            if (Directory.Exists(Application.persistentDataPath))
+            {
+                Directory.Delete(Application.persistentDataPath, true);
+            }
+            Directory.CreateDirectory(Application.persistentDataPath);
         }
         
         public void WrapUp(bool isAppExit)
