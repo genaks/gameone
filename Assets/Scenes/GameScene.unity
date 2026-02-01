@@ -957,6 +957,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1158356998}
   - component: {fileID: 1158356999}
+  - component: {fileID: 1158357000}
   m_Layer: 5
   m_Name: CardGrid
   m_TagString: Untagged
@@ -1002,7 +1003,22 @@ MonoBehaviour:
   padding: {x: 10, y: 10}
   maintainCellAspectRatio: 1
   cellAspectRatio: 1
-  updateOnScreenResize: 1
+  updateOnScreenResize: 0
+--- !u!114 &1158357000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158356997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b126dd7dcab449da49e7590ba58393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridLayout: {fileID: 1158356999}
+  cardPrefab: {fileID: 8258703810235850149, guid: fa5fa73b3e0d947779fd94ae5761e767, type: 3}
+  cardPreviewDelay: 0.5
 --- !u!1 &1293378888
 GameObject:
   m_ObjectHideFlags: 0

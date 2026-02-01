@@ -1,12 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Core;
-using Core.Config;
 using Core.MessageBroker;
 using Core.Services;
-using ScriptableObjects;
-using UI;
 using UnityEngine;
 
 namespace Gameplay

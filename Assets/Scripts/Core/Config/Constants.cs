@@ -11,6 +11,12 @@ namespace Core.Config
         public static class Filenames
         {
             public const string CurrentLevel = "CurrentLevel";
+            public const string Textures = "Textures/";
+        }
+
+        public static class ObjectNames
+        {
+            public const string CardPrefix = "Card_";
         }
     }
 }
