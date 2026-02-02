@@ -1004,6 +1004,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1105529850}
   turnsText: {fileID: 431900201}
+  endGameView: {fileID: 633231615}
+  finalScoreText: {fileID: 1896037746}
 --- !u!1 &756520170
 GameObject:
   m_ObjectHideFlags: 0
@@ -2389,6 +2391,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endGameDelay: 5
-  scoreController: {fileID: 648155096}
-  endGameView: {fileID: 633231615}
-  finalScoreText: {fileID: 1896037746}
