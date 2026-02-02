@@ -226,9 +226,11 @@ namespace Gameplay
             List<CardModel> cards = new List<CardModel>();
             foreach (var card in _cards)
             {
-                CardModel cardModel = new CardModel();
-                cardModel.CardID = card.CardID;
-                cardModel.Revealed = card.Revealed;
+                CardModel cardModel = new CardModel
+                {
+                    CardID = card.CardID,
+                    Revealed = card.Revealed
+                };
                 cards.Add(cardModel);
             }
             return cards.ToArray();
