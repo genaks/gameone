@@ -96,7 +96,6 @@ namespace Gameplay
             for (int i = 0; i < levelData.Cards.Length; i++)
             {
                 CardView card = Instantiate(cardPrefab, gridLayout.transform);
-                card.SetData(levelData.Cards[i].CardID, i, levelData.Cards[i].Revealed);
                 card.gameObject.name = Constants.ObjectNames.CardPrefix +  $"_{i}";
                 card.OnCardSelected += RegisterCardSelection;
                 _cards.Add(card);
@@ -113,6 +112,12 @@ namespace Gameplay
             gridLayout.SetColumns(levelData.NumberOfColumns);
             gridLayout.SetRows(levelData.NumberOfRows);
             gridLayout.UpdateGrid();
+
+            //set card data once the layout has been set
+            for (int j = 0; j < levelData.Cards.Length; j++)
+            {
+                _cards[j].SetData(levelData.Cards[j].CardID, j, levelData.Cards[j].Revealed);
+            }
         }
         
         private void RegisterCardSelection(string cardID, int index)

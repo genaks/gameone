@@ -1,3 +1,4 @@
+using System;
 using Core.MessageBroker;
 using Core.MessageBroker.Events;
 using Core.Services;
@@ -65,6 +66,11 @@ namespace Gameplay
             _score = score;
             turnsText.text = $"{_turns}";
             scoreText.text = $"{_score}";
+        }
+
+        private void OnDestroy()
+        {
+            _messageBroker.Unsubscribe<CardGridExhaustedEvent>(OnCardGridExhausted);
         }
     }
 }
