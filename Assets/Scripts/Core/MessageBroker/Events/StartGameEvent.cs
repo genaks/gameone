@@ -1,6 +1,6 @@
 using ScriptableObjects;
 
-namespace Core.MessageBroker
+namespace Core.MessageBroker.Events
 {
     public class StartGameEvent : IGameEvent
     {

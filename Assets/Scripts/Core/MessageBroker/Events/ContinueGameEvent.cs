@@ -1,4 +1,4 @@
-namespace Core.MessageBroker
+namespace Core.MessageBroker.Events
 {
     public class ContinueGameEvent : IGameEvent
     {

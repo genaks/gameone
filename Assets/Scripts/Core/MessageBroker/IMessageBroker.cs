@@ -1,4 +1,5 @@
 using Core;
+using Core.MessageBroker.Events;
 
 namespace Core.Services
 {

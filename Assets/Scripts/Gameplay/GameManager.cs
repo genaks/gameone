@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Core.MessageBroker;
+using Core.MessageBroker.Events;
 using Core.Services;
 using Core.Services.FileSystem;
 using TMPro;
@@ -30,6 +31,11 @@ namespace Gameplay
         }
         
         public void GoToMainMenu()
+        {
+            StartCoroutine(EndGameWithDelay(0.0f));
+        }
+
+        public void EndGame()
         {
             StartCoroutine(EndGameWithDelay(0.0f));
         }
