@@ -66,11 +66,7 @@ namespace Gameplay
             // Clear existing children
             ClearGrid();
             int numberOfElements = levelData.NumberOfRows * levelData.NumberOfColumns;
-            List<string> sprites = new List<string>();
-            foreach (var card in levelData.Cards)
-            {
-                sprites.Add(card.CardID);
-            }
+            var sprites = FillList(levelData.Cards, numberOfElements / 2);
             sprites.AddRange(sprites);
             string[] shuffledCards = _cardShuffler.ShuffleCards(sprites.ToArray());
             _unrevealedCardsCount = numberOfElements;
@@ -89,6 +85,18 @@ namespace Gameplay
             gridLayout.SetColumns(levelData.NumberOfColumns);
             gridLayout.SetRows(levelData.NumberOfRows);
             gridLayout.UpdateGrid();
+        }
+        
+        private List<string> FillList(CardModel[] source, int targetLength)
+        {
+            List<string> result = new List<string>();
+
+            for (int i = 0; i < targetLength; i++)
+            {
+                result.Add(source[i % source.Length].CardID);
+            }
+
+            return result;
         }
 
         private void LoadCardsFromSavedData(LevelData levelData)
