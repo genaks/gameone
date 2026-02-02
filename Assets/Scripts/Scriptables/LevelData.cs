@@ -7,24 +7,28 @@ namespace Scriptables
     [Serializable]
     public class LevelData
     {
-        public int numberOfColumns;
-        public int numberOfRows;
-        public Dictionary<string, bool> cards = new ();
-        public bool savedGame = false;
+        public int NumberOfColumns { get; }
+        public int NumberOfRows { get; }
+        public Dictionary<string, bool> Cards { get; }
+        public bool SavedGame { get; }
+        public int Turns { get; }
+        public int Score { get; }
         
-        public LevelData()
+        public LevelData(Dictionary<string, bool> cards, bool savedGame, int turns, int score)
         {
-            
+            Cards = cards;
+            SavedGame = savedGame;
+            Turns = turns;
+            Score = score;
         }
         
-        public LevelData(LevelDesignerScriptableObject levelObject)
+        public LevelData(LevelDesignerScriptableObject levelObject, bool savedGame, int turns, int score)
         {
-            numberOfRows = levelObject.NumberOfRows;
-            numberOfColumns = levelObject.NumberOfColumns;
-            foreach (var sprite in levelObject.Sprites)
-            {
-                cards[sprite] = false;
-            }
+            SavedGame = savedGame;
+            Turns = turns;
+            Score = score;
+            NumberOfRows = levelObject.NumberOfRows;
+            NumberOfColumns = levelObject.NumberOfColumns;
         }
     }
 }

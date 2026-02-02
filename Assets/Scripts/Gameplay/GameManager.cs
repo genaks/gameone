@@ -11,9 +11,6 @@ namespace Gameplay
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private float endGameDelay = 5.0f;
-        [SerializeField] private ScoreController scoreController;
-        [SerializeField] private GameObject endGameView;
-        [SerializeField] private TMP_Text finalScoreText;
 
         private MessageBroker _messageBroker;
         private IFileService _fileService;
@@ -45,9 +42,6 @@ namespace Gameplay
         
         private IEnumerator EndGameWithDelay(float delay)
         {
-            endGameView.SetActive(true);
-            int finalScore = scoreController.GetFinalScore();
-            finalScoreText.text = $"{finalScore}";
             yield return new WaitForSeconds(delay);
             _messageBroker.Publish(new EndGameEvent());
         }

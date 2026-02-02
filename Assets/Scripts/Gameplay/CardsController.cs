@@ -55,8 +55,8 @@ namespace Gameplay
         {
             // Clear existing children
             ClearGrid();
-            int numberOfElements = levelData.numberOfRows * levelData.numberOfColumns;
-            List<string> sprites = levelData.cards.Keys.ToList();
+            int numberOfElements = levelData.NumberOfRows * levelData.NumberOfColumns;
+            List<string> sprites = levelData.Cards.Keys.ToList();
             sprites.AddRange(sprites);
             string[] shuffledCards = _cardShuffler.ShuffleCards(sprites.ToArray());
             _unrevealedCards = numberOfElements;
@@ -72,8 +72,8 @@ namespace Gameplay
             }
         
             // Update the grid layout
-            gridLayout.SetColumns(levelData.numberOfColumns);
-            gridLayout.SetRows(levelData.numberOfRows);
+            gridLayout.SetColumns(levelData.NumberOfColumns);
+            gridLayout.SetRows(levelData.NumberOfRows);
             gridLayout.UpdateGrid();
         }
     

@@ -48,7 +48,7 @@ namespace UI
         private void StartGame(StartGameEvent startGameEvent)
         {
             _fileService.WipeAll();
-            LevelData level = new LevelData(startGameEvent.Level);
+            LevelData level = new LevelData(startGameEvent.Level, false, 0, 0);
             _fileService.WriteToFile(level, Constants.Filenames.CurrentLevel);
         }
         

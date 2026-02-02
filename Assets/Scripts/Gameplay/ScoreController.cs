@@ -1,3 +1,4 @@
+using Core.MessageBroker;
 using Core.Services;
 using TMPro;
 using UnityEngine;
@@ -8,6 +9,8 @@ namespace Gameplay
     {
         [SerializeField] private TMP_Text scoreText;
         [SerializeField] private TMP_Text turnsText;
+        [SerializeField] private GameObject endGameView;
+        [SerializeField] private TMP_Text finalScoreText;
 
         private MessageBroker _messageBroker;
         private int _comboMultiplier = 1;
@@ -19,7 +22,13 @@ namespace Gameplay
             if (ServiceLocator.Instance.TryGet(out MessageBroker messageBroker))
             {
                 _messageBroker = messageBroker;
+                _messageBroker.Subscribe<CardGridExhaustedEvent>(OnCardGridExhausted);
             }
+        }
+
+        private void OnCardGridExhausted(CardGridExhaustedEvent cardGridExhaustedEvent)
+        {
+            ShowEndGameView();
         }
 
         public void OnCardSelected()
@@ -40,9 +49,15 @@ namespace Gameplay
             _comboMultiplier = 1;
         }
 
-        public int GetFinalScore()
+        public int GetScore()
         {
             return _score;
+        }
+
+        private void ShowEndGameView()
+        {
+            endGameView.SetActive(true);
+            finalScoreText.text = $"{_score}";
         }
     }
 }
