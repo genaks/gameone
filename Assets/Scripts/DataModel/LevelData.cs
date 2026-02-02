@@ -36,21 +36,14 @@ namespace DataModel
             Cards = cardsList.ToArray();
         }
         
-        public LevelData(LevelData levelData, Dictionary<string, bool> cards, bool savedGame, int turns, int score)
+        public LevelData(LevelData levelData, CardModel[] cards, bool savedGame, int turns, int score)
         {
             SavedGame = savedGame;
             Turns = turns;
             Score = score;
             NumberOfRows = levelData.NumberOfRows;
             NumberOfColumns = levelData.NumberOfColumns;
-            List<CardModel> cardsList = new List<CardModel>();
-            foreach (var cardID in cards.Keys)
-            {
-                CardModel cardModel = new CardModel(cardID, cards[cardID]);
-                cardsList.Add(cardModel);
-            }
-            
-            Cards = cardsList.ToArray();
+            Cards = cards;
         }
     }
 }

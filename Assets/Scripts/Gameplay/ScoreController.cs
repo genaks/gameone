@@ -58,5 +58,13 @@ namespace Gameplay
             endGameView.SetActive(true);
             finalScoreText.text = $"{_score}";
         }
+
+        public void SetSavedData(int turns, int score)
+        {
+            _turns = turns;
+            _score = score;
+            turnsText.text = $"{_turns}";
+            scoreText.text = $"{_score}";
+        }
     }
 }

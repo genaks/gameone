@@ -93,7 +93,6 @@ namespace Gameplay
 
         private void LoadCardsFromSavedData(LevelData levelData)
         {
-            
             for (int i = 0; i < levelData.Cards.Length; i++)
             {
                 CardView card = Instantiate(cardPrefab, gridLayout.transform);
@@ -107,6 +106,8 @@ namespace Gameplay
                     _unrevealedCardsCount++;
                 }
             }
+            
+            scoreController.SetSavedData(levelData.Turns, levelData.Score);
             
             // Update the grid layout
             gridLayout.SetColumns(levelData.NumberOfColumns);
@@ -220,15 +221,17 @@ namespace Gameplay
             _fileService.WriteToFile(levelData, Constants.Filenames.CurrentLevel);
         }
 
-        private Dictionary<string, bool> GetCurrentCards()
+        private CardModel[] GetCurrentCards()
         {
-            Dictionary<string, bool> cardsDictionary = new();
+            List<CardModel> cards = new List<CardModel>();
             foreach (var card in _cards)
             {
-                cardsDictionary[card.CardID] = card.Revealed;
+                CardModel cardModel = new CardModel();
+                cardModel.CardID = card.CardID;
+                cardModel.Revealed = card.Revealed;
+                cards.Add(cardModel);
             }
-            
-            return cardsDictionary;
+            return cards.ToArray();
         }
 
         private void OnDestroy()
