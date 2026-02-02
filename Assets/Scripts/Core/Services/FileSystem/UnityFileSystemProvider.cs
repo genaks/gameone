@@ -1,6 +1,6 @@
 using System.IO;
 using System.Text;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Core.Services.FileSystem
