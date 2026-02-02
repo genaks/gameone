@@ -16,6 +16,9 @@ namespace Gameplay
         private int _comboMultiplier = 1;
         private int _score = 0;
         private int _turns = 0;
+
+        public int Score => _score;
+        public int Turns => _turns;
         
         private void Start()
         {
@@ -47,11 +50,6 @@ namespace Gameplay
         public void OnDifferentCardsSelected()
         {
             _comboMultiplier = 1;
-        }
-
-        public int GetScore()
-        {
-            return _score;
         }
 
         private void ShowEndGameView()

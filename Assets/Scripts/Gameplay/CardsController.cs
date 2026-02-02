@@ -5,7 +5,7 @@ using Core.Config;
 using Core.MessageBroker;
 using Core.Services;
 using Core.Services.FileSystem;
-using Scriptables;
+using DataModel;
 using UI;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ namespace Gameplay
         private LevelData _levelData;
         private CardShuffler _cardShuffler;
     
-        private List<CardView> _cards = new List<CardView>();
+        private readonly List<CardView> _cards = new();
         private int _firstCardIndex = -1;
         private string _firstCardID = "";
         private int _unrevealedCards = 0;
@@ -56,7 +56,11 @@ namespace Gameplay
             // Clear existing children
             ClearGrid();
             int numberOfElements = levelData.NumberOfRows * levelData.NumberOfColumns;
-            List<string> sprites = levelData.Cards.Keys.ToList();
+            List<string> sprites = new List<string>();
+            foreach (var card in levelData.Cards)
+            {
+                sprites.Add(card.CardID);
+            }
             sprites.AddRange(sprites);
             string[] shuffledCards = _cardShuffler.ShuffleCards(sprites.ToArray());
             _unrevealedCards = numberOfElements;
@@ -166,6 +170,28 @@ namespace Gameplay
                     DestroyImmediate(gridLayout.transform.GetChild(i).gameObject);
                 }
             }
+        }
+
+        private void OnApplicationQuit()
+        {
+            SaveCurrentCardData();
+        }
+
+        private void SaveCurrentCardData()
+        {
+            LevelData levelData = new LevelData(_levelData, GetCurrentCards(), true, scoreController.Turns, scoreController.Score);
+            _fileService.WriteToFile(levelData, Constants.Filenames.CurrentLevel);
+        }
+
+        private Dictionary<string, bool> GetCurrentCards()
+        {
+            Dictionary<string, bool> cardsDictionary = new();
+            foreach (var card in _cards)
+            {
+                cardsDictionary[card.CardID] = card.Revealed;
+            }
+            
+            return cardsDictionary;
         }
     }
 }

@@ -11,8 +11,11 @@ namespace UI
         [SerializeField] private Image image;
 
         private bool _revealed = false;
-        private string _spriteID;
+        private string _cardID;
         private int _index;
+
+        public bool Revealed => _revealed;
+        public string CardID => _cardID;
         
         public delegate void CardSelectedDelegate(string cardID, int index);
         public CardSelectedDelegate OnCardSelected;
@@ -20,7 +23,7 @@ namespace UI
         public void SetData(string sprite, int index, bool revealed)
         {
             image.sprite = Resources.Load<Sprite>(Constants.Filenames.Textures + sprite);
-            _spriteID = sprite;
+            _cardID = sprite;
             _index = index;
             _revealed = revealed;
             if (_revealed)
@@ -32,7 +35,7 @@ namespace UI
         public void OnPointerClick(PointerEventData eventData)
         {
             image.gameObject.SetActive(true);
-            OnCardSelected.Invoke(_spriteID, _index);
+            OnCardSelected.Invoke(_cardID, _index);
         }
 
         public void SetRevealed()

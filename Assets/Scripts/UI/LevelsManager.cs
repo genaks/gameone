@@ -6,8 +6,8 @@ using Core.Config;
 using Core.MessageBroker;
 using Core.Services;
 using Core.Services.FileSystem;
+using DataModel;
 using ScriptableObjects;
-using Scriptables;
 using UnityEngine.EventSystems;
 
 namespace UI
