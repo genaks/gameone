@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace Gameplay
         private readonly List<CardView> _cards = new();
         private int _firstCardIndex = -1;
         private string _firstCardID = "";
-        private int _unrevealedCards = 0;
+        private int _unrevealedCardsCount = 0;
         
         private void Start()
         {
@@ -42,16 +43,24 @@ namespace Gameplay
             if (ServiceLocator.Instance.TryGet(out MessageBroker messageBroker))
             {
                 _messageBroker = messageBroker;
+                _messageBroker.Subscribe<SaveGameEvent>(SaveCurrentGame);
             }
             
             if (ServiceLocator.Instance.TryGet(out FileService fileService))
             {
                 _fileService = fileService;
                 _levelData = _fileService.ReadFromFile<LevelData>(Constants.Filenames.CurrentLevel);
-                PopulateCards(_levelData);
+                if (_levelData.SavedGame)
+                {
+                    LoadCardsFromSavedData(_levelData);
+                }
+                else
+                {
+                    PopulateCards(_levelData);
+                }
             }
         }
-    
+
         private void PopulateCards(LevelData levelData)
         {
             // Clear existing children
@@ -64,7 +73,7 @@ namespace Gameplay
             }
             sprites.AddRange(sprites);
             string[] shuffledCards = _cardShuffler.ShuffleCards(sprites.ToArray());
-            _unrevealedCards = numberOfElements;
+            _unrevealedCardsCount = numberOfElements;
             
             // Create new elements
             for (int i = 0; i < numberOfElements; i++)
@@ -81,8 +90,30 @@ namespace Gameplay
             gridLayout.SetRows(levelData.NumberOfRows);
             gridLayout.UpdateGrid();
         }
-    
-    
+
+        private void LoadCardsFromSavedData(LevelData levelData)
+        {
+            
+            for (int i = 0; i < levelData.Cards.Length; i++)
+            {
+                CardView card = Instantiate(cardPrefab, gridLayout.transform);
+                card.SetData(levelData.Cards[i].CardID, i, levelData.Cards[i].Revealed);
+                card.gameObject.name = Constants.ObjectNames.CardPrefix +  $"_{i}";
+                card.OnCardSelected += RegisterCardSelection;
+                _cards.Add(card);
+
+                if (!levelData.Cards[i].Revealed)
+                {
+                    _unrevealedCardsCount++;
+                }
+            }
+            
+            // Update the grid layout
+            gridLayout.SetColumns(levelData.NumberOfColumns);
+            gridLayout.SetRows(levelData.NumberOfRows);
+            gridLayout.UpdateGrid();
+        }
+        
         private void RegisterCardSelection(string cardID, int index)
         {
             if (_firstCardIndex == -1)
@@ -108,7 +139,7 @@ namespace Gameplay
 
         private void OnMatchingCardsSelected(int index)
         {
-            _unrevealedCards -= 2;
+            _unrevealedCardsCount -= 2;
             audioSource.PlayOneShot(successAudioClip);
             scoreController.OnMatchingCardsSelected();
             StartCoroutine(HideCardsWithDelay(_firstCardIndex, index));
@@ -140,7 +171,7 @@ namespace Gameplay
             _cards[firstCardIndex].SetRevealed();
             _cards[secondCardIndex].SetRevealed();
 
-            if (_unrevealedCards == 0)
+            if (_unrevealedCardsCount == 0)
             {
                 _messageBroker.Publish(new CardGridExhaustedEvent());
             }
@@ -172,6 +203,11 @@ namespace Gameplay
                 }
             }
         }
+        
+        private void SaveCurrentGame(SaveGameEvent e)
+        {
+            SaveCurrentCardData();
+        }
 
         private void OnApplicationQuit()
         {
@@ -193,6 +229,11 @@ namespace Gameplay
             }
             
             return cardsDictionary;
+        }
+
+        private void OnDestroy()
+        {
+            _messageBroker.Unsubscribe<SaveGameEvent>(SaveCurrentGame);
         }
     }
 }

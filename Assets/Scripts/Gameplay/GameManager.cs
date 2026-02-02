@@ -32,6 +32,7 @@ namespace Gameplay
         
         public void GoToMainMenu()
         {
+            _messageBroker.Publish(new SaveGameEvent());
             StartCoroutine(EndGameWithDelay(0.0f));
         }
 
